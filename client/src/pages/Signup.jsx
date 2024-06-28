@@ -13,7 +13,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      setError(true);
+      setError(false);
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
