@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
+  const [errorType, setErrorType] = useState("");
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -26,12 +28,14 @@ const Signup = () => {
       console.log(data);
       setLoading(false);
 
-      if (data.success == false) {
+      if (data.message) {
+        setErrorType(data.message);
         setError(true);
         return;
       }
       navigate("/sign-in");
     } catch (error) {
+      setErrorType(error);
       console.log("error happened");
       setLoading(false);
       setError(true);
@@ -80,7 +84,9 @@ const Signup = () => {
           <span className="text-blue-500">Sign in</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5">{error && "Something went wrong"}</p>
+      <p className="text-red-700 mt-5">
+        {errorType ? errorType : "Something went wrong"}
+      </p>
     </div>
   );
 };
