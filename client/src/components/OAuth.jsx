@@ -24,9 +24,8 @@ export const OAuth = () => {
           photo: result.user.photoURL,
         }),
       });
-
+      console.log(result);
       const data = await res.json();
-      console.log(data);
       dispatch(signInSuccess(data));
     } catch (error) {
       console.log("error with google account", error);

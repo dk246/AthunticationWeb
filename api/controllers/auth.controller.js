@@ -39,9 +39,7 @@ export const google = async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (user) {
-      console.log("signin");
       const token = jwt.sign({ id: user._id }, "ttt");
-
       res.cookie("acces_token", token, { httpOnly: true }).json(user);
     } else {
       const generatedPassword = Math.random().toString(36).slice(-8);
@@ -50,7 +48,7 @@ export const google = async (req, res) => {
         username: req.body.name.split(" ").join("").toLowerCase(),
         email: req.body.email,
         password: hashedPAssword,
-        profilePhoto: req.body.profilePhoto,
+        profilePhoto: req.body.photo,
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, "ttt");
